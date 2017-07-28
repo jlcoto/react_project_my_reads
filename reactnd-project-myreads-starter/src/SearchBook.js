@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ListReads from './ListReads.js'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBook extends Component {
@@ -8,25 +9,35 @@ class SearchBook extends Component {
 			booksFound: []}
 
 	updateQuery = (query) => {
-		let queryResult = [];
 		let newQuery = query.trim();
+		this.setState({query: newQuery})
+
 
 		if (newQuery !== ''){
 			BooksAPI.search(newQuery, 5).then((books) => {
-					books.map((book) => queryResult.push(book))
+				if (!books.error) {
+					this.setState({booksFound: books})
+					}
 				})
-			this.setState({query: newQuery})
-			this.setState({booksFound: queryResult})
-		} else {
+		} else if (newQuery === '') {
 			this.setState({booksFound: []})
 		}
+
+
+
 	}
+
+	moveToMyRead = (book, shelf) => {
+
+	}
+
 
 
 
 	render() {
 
 		const { query, booksFound } = this.state
+
 
 
 
@@ -52,7 +63,7 @@ class SearchBook extends Component {
         	      </div>
         	    </div>
         	    <div className="search-books-results">
-        	    	<ol className="books-grid"></ol>
+        	    	<ListReads books={booksFound} shelf={'read'} onUpdateShelf={this.moveToMyRead.bind(this)}/>
         	    </div>
         	</div>)
 	}
