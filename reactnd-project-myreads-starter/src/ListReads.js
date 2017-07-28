@@ -17,22 +17,9 @@ class ListReads extends Component {
 
 
 		let filteredBooks = books.filter((book) => book.shelf ===  shelf );
-		let title;
 
-
-
-		if (shelf === 'currentlyReading') {
-			title = 'Currently Reading';
-		} else if (shelf === 'wantToRead') {
-			title = 'Want to Read';
-		} else {
-			title = 'Read'
-		}
 
 		return (
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">{title}</h2>
-          	<div className="bookshelf-books">
 			<ol className="books-grid">
 				{filteredBooks.map((book) => (
 					<li key={book.id}>
@@ -56,8 +43,6 @@ class ListReads extends Component {
                         </div>
                 </li>))}
 			</ol>
-			</div>
-			</div>
 		)
 	}
 }

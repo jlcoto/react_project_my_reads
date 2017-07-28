@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListReads from './ListReads.js'
+import SearchBook from './SearchBook.js'
 
 class BooksApp extends React.Component {
   state = {
@@ -12,7 +13,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false
+    showSearchPage: true
   }
 
 
@@ -34,31 +35,11 @@ class BooksApp extends React.Component {
   }
 
 
-
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:x
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
+          <SearchBook />
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -66,9 +47,24 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <ListReads books={this.state.books} shelf={'currentlyReading'} onUpdateShelf={this.moveBook.bind(this)}/>
-                <ListReads books={this.state.books} shelf={'wantToRead'} onUpdateShelf={this.moveBook.bind(this)}/>
+                <div className="bookshelf">
+                  <h2 className="bookshelf-title">Currently Reading</h2>
+                <div className="bookshelf-books">
+                  <ListReads books={this.state.books} shelf={'currentlyReading'} onUpdateShelf={this.moveBook.bind(this)}/>
+                </div>
+                </div>
+                <div className="bookshelf">
+                  <h2 className="bookshelf-title">Want to Read</h2>
+                <div className="bookshelf-books">
+                  <ListReads books={this.state.books} shelf={'wantToRead'} onUpdateShelf={this.moveBook.bind(this)}/>
+                </div>
+                </div>
+                <div className="bookshelf">
+                  <h2 className="bookshelf-title">Read</h2>
+                <div className="bookshelf-books">
                 <ListReads books={this.state.books} shelf={'read'} onUpdateShelf={this.moveBook.bind(this)}/>
+                </div>
+                </div>
               </div>
             </div>
             <div className="open-search">
