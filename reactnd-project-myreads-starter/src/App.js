@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: true
+    showSearchPage: false
   }
 
 
@@ -51,20 +51,19 @@ class BooksApp extends React.Component {
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                 <div className="bookshelf-books">
-
-                  <ListReads books={books} shelf={'currentlyReading'} onUpdateShelf={this.moveBook.bind(this)}/>
+                  <ListReads books={books.filter((book) => book.shelf ===  'currentlyReading')}  onUpdateShelf={this.moveBook.bind(this)}/>
                 </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                 <div className="bookshelf-books">
-                  <ListReads books={books} shelf={'wantToRead'} onUpdateShelf={this.moveBook.bind(this)}/>
+                  <ListReads books={books.filter((book) => book.shelf ===  'wantToRead')}  onUpdateShelf={this.moveBook.bind(this)}/>
                 </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
-                <ListReads books={books} shelf={'read'} onUpdateShelf={this.moveBook.bind(this)}/>
+                <ListReads books={books.filter((book) => book.shelf ===  'read')} onUpdateShelf={this.moveBook.bind(this)}/>
                 </div>
                 </div>
               </div>

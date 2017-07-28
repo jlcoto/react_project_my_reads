@@ -5,23 +5,20 @@ class ListReads extends Component {
 
 	static propTypes = {
 		books: PropTypes.array.isRequired,
-		shelf: PropTypes.string.isRequired,
 		onUpdateShelf: PropTypes.func.isRequired
 
 	}
 
 
 	render(){
-		const { books, shelf, onUpdateShelf } = this.props
+		const { books, onUpdateShelf } = this.props
 
 
-
-		let filteredBooks = books.filter((book) => book.shelf ===  shelf );
 
 
 		return (
 			<ol className="books-grid">
-				{filteredBooks.map((book) => (
+				{books.map((book) => (
 					<li key={book.id}>
                         <div className="book">
                           <div className="book-top">
