@@ -16,6 +16,9 @@ class SearchBook extends Component {
 		if (newQuery !== ''){
 			BooksAPI.search(newQuery, 5).then((books) => {
 				if (!books.error) {
+					books.map((book) => {
+						return book.shelf = 'none';
+					})
 					this.setState({booksFound: books})
 					}
 				})
@@ -35,6 +38,7 @@ class SearchBook extends Component {
 
 
 	render() {
+
 
 		const { query, booksFound } = this.state
 
@@ -60,7 +64,7 @@ class SearchBook extends Component {
         	      </div>
         	    </div>
         	    <div className="search-books-results">
-        	    	<ListReads books={booksFound} shelf={'read'} onUpdateShelf={this.moveToMyRead.bind(this)}/>
+        	    	<ListReads books={booksFound} onUpdateShelf={this.moveToMyRead.bind(this)}/>
         	    </div>
         	</div>)
 	}
