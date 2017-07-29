@@ -5,6 +5,10 @@ import * as BooksAPI from './BooksAPI'
 
 class SearchBook extends Component {
 
+	static propTypes = {
+		moveToMyRead: PropTypes.func.isRequired
+	}
+
 	state = {query: '',
 			booksFound: []}
 
@@ -30,16 +34,11 @@ class SearchBook extends Component {
 
 	}
 
-	moveToMyRead = (book, shelf) => {
-
-	}
-
-
 
 
 	render() {
 
-
+		const { moveToMyRead } = this.props
 		const { query, booksFound } = this.state
 
 		return(
@@ -64,7 +63,7 @@ class SearchBook extends Component {
         	      </div>
         	    </div>
         	    <div className="search-books-results">
-        	    	<ListReads books={booksFound} onUpdateShelf={this.moveToMyRead.bind(this)}/>
+        	    	<ListReads books={booksFound} onUpdateShelf={(book, shelf) => moveToMyRead(book, shelf)}/>
         	    </div>
         	</div>)
 	}
