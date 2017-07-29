@@ -6,40 +6,54 @@ import * as BooksAPI from './BooksAPI'
 class SearchBook extends Component {
 
 	static propTypes = {
-		moveToMyRead: PropTypes.func.isRequired
+		moveToMyRead: PropTypes.func.isRequired,
+		booksInMyReads: PropTypes.array.isRequired
 	}
 
 	state = {query: '',
 			booksFound: []}
 
+	booksInShelf = () => (this.props.booksInMyReads.map((book) => book.id))
+
 	updateQuery = (query) => {
+		let booksInShelf = this.booksInShelf()
 		let newQuery = query.trim();
 		this.setState({query: newQuery})
 
 
 		if (newQuery !== ''){
 			BooksAPI.search(newQuery, 5).then((books) => {
+				console.log(booksInShelf)
 				if (!books.error) {
-					books.map((book) => {
-						return book.shelf = 'none';
-					})
-					this.setState({booksFound: books})
+						let newBooks = books.filter(function(book) {
+							console.log(booksInShelf.indexOf(book.id) !==-1)
+							return booksInShelf.indexOf(book.id) ===-1
+						})
+						newBooks.map((book) => {
+							 return book.shelf = 'none';
+							})
+					this.setState({booksFound: newBooks})
 					}
 				})
 		} else if (newQuery === '') {
 			this.setState({booksFound: []})
 		}
-
-
-
 	}
+
+
+
+
+		// this.setState((state) => ({booksFound: state.booksFound.filter((book) => !booksInShelf.includes(book))}))
 
 
 
 	render() {
 
-		const { moveToMyRead } = this.props
+		const { moveToMyRead, booksInMyReads} = this.props
 		const { query, booksFound } = this.state
+
+
+
 
 		return(
 			<div className="search-books">
