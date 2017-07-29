@@ -13,9 +13,6 @@ class ListReads extends Component {
 	render(){
 		const { books, onUpdateShelf } = this.props
 
-
-
-
 		return (
 			<ol className="books-grid">
 				{books.map((book) => (
