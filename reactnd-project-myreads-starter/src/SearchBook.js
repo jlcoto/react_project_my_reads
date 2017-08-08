@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ListReads from './ListReads.js'
-import * as BooksAPI from './BooksAPI'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ListReads from './ListReads.js';
+import { Link } from 'react-router-dom';
+import * as BooksAPI from './BooksAPI';
 
 class SearchBook extends Component {
 
@@ -45,20 +46,18 @@ class SearchBook extends Component {
 
 		const { query, booksFound } = this.state
 
-
-
-
 		return(
 			<div className="search-books">
         	    <div className="search-books-bar">
-        	      <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+        	      <Link
+        	      	className="close-search"
+        	      	to="/">Close</Link>
         	      <div className="search-books-input-wrapper">
         	        <input
         	        	type="text"
 						placeholder="Search by title or author"
 						value={query}
 						onChange={(e) => this.updateQuery(e.target.value)}/>
-
         	      </div>
         	    </div>
         	    <div className="search-books-results">
