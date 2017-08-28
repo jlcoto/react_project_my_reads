@@ -5,7 +5,7 @@ class ListReads extends Component {
 
 	static propTypes = {
 		books: PropTypes.array.isRequired,
-		onUpdateShelf: PropTypes.func.isRequired
+		onUpdateShelf: PropTypes.func.isRequired,
 	}
 
 

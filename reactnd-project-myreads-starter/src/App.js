@@ -2,7 +2,9 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-import ListReads from './ListReads.js';
+import CurrentlyReading from './CurrentlyReading.js'
+import WantRead from './WantRead.js'
+import Read from './Read.js';
 import SearchBook from './SearchBook.js';
 
 class BooksApp extends React.Component {
@@ -10,13 +12,11 @@ class BooksApp extends React.Component {
     books: []
   }
 
-
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
     })
   }
-
 
   moveBook(book, shelf) {
     let changeShelf = []
@@ -31,7 +31,8 @@ class BooksApp extends React.Component {
 
   render() {
 
-    const { books } = this.state
+    let { books } = this.state
+
     return (
       <div className="app">
       <Route exact path="/" render={() => (
@@ -40,26 +41,9 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ListReads books={books.filter((book) => book.shelf ===  'currentlyReading')}  onUpdateShelf={this.moveBook.bind(this)}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ListReads books={books.filter((book) => book.shelf ===  'wantToRead')}  onUpdateShelf={this.moveBook.bind(this)}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ListReads books={books.filter((book) => book.shelf ===  'read')} onUpdateShelf={this.moveBook.bind(this)}/>
-                  </div>
-                </div>
-              </div>
+                <CurrentlyReading books={books} showInBookShelf={this.moveBook.bind(this)}/>
+                <WantRead books={books} showInBookShelf={this.moveBook.bind(this)}/>
+                <Read books={books} showInBookShelf={this.moveBook.bind(this)}/>
             </div>
             <div className="open-search">
               <Link to="add_book">Add a book</Link>
