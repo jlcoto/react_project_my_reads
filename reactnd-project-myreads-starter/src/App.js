@@ -28,12 +28,6 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf)
   }
 
-  addBook(book, shelf) {
-    book.shelf = shelf
-    this.setState({books: this.state.books.concat([book])})
-    BooksAPI.update(book, shelf)
-  }
-
 
   render() {
 
@@ -72,7 +66,7 @@ class BooksApp extends React.Component {
             </div>
           </div>)}/>
           <Route path="/add_book" render={() =>
-            (<SearchBook moveToMyRead={this.addBook.bind(this)} booksInMyReads={books}/>)
+            (<SearchBook moveToMyRead={this.moveBook.bind(this)} booksInMyReads={books}/>)
           }/>
       </div>
     )

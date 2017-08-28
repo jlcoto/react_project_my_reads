@@ -17,19 +17,22 @@ class SearchBook extends Component {
 	booksInShelf = () => (this.props.booksInMyReads.map((book) => book.id))
 
 	updateQuery = (query) => {
+		let booksInMyReads = this.props.booksInMyReads
 		let booksInShelf = this.booksInShelf()
 		let newQuery = query.trim();
 		this.setState({query: newQuery})
 		if (newQuery !== ''){
 			BooksAPI.search(newQuery, 5).then((books) => {
 				if (!books.error) {
-						let newBooks = books.filter(function(book) {
-								return booksInShelf.indexOf(book.id) ===-1
-							})
-						newBooks.map((book) => {
-							 return book.shelf = 'none';
-							})
-					this.setState({booksFound: newBooks})
+					let booksToShow = []
+						books.forEach(function(book){
+							if(booksInShelf.indexOf(book.id)!==-1){
+								booksToShow.push(booksInMyReads[booksInShelf.indexOf(book.id)])
+							} else {
+								booksToShow.push(book)
+							}
+						})
+					this.setState({booksFound: booksToShow})
 					}
 				})
 		} else if (newQuery === '') {
@@ -38,12 +41,10 @@ class SearchBook extends Component {
 	}
 
 	selectBook = (book, shelf) => {
-		this.setState((state) => ({booksFound: state.booksFound.filter((b) => b.id !== book.id)}))
 		this.props.moveToMyRead(book, shelf)
 	}
 
 	render() {
-
 		const { query, booksFound } = this.state
 
 		return(
