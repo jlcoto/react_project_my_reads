@@ -2,7 +2,7 @@
 
 This projects contains an App created with [React](https://facebook.github.io/react/), a JavaScript libary for creating user interfaces. This app is built as part of the Udacity Nanodegree on React fundamentals.
 
-The app shows a online bookshelf in which users can change books from different shelfs (i.e. reading, want to read, read). It also adds the possibility of searching and adding new books to one of the shelfs. This is done in an intuitive and non-obtrusive way to provide a good UI experience.
+The app shows a online bookshelf in which users can change books from different shelfs. There are three different shelves:  It also adds the possibility of searching and adding new books to one of the shelfs. This is done in an intuitive and non-obtrusive way to provide a good UI experience.
 
 ## Installation
 
