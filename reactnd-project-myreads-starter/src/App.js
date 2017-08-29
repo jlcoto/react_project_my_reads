@@ -2,9 +2,7 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-import CurrentlyReading from './CurrentlyReading.js'
-import WantRead from './WantRead.js'
-import Read from './Read.js';
+import Shelf from './Shelf.js'
 import SearchBook from './SearchBook.js';
 
 class BooksApp extends React.Component {
@@ -41,9 +39,9 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-                <CurrentlyReading books={books} showInBookShelf={this.moveBook.bind(this)}/>
-                <WantRead books={books} showInBookShelf={this.moveBook.bind(this)}/>
-                <Read books={books} showInBookShelf={this.moveBook.bind(this)}/>
+                <Shelf books={books.filter((book) => book.shelf ===  'currentlyReading')} shelfTitle={"Currently Reading"} showInBookShelf={this.moveBook.bind(this)}/>
+                <Shelf books={books.filter((book) => book.shelf ===  'wantToRead')} shelfTitle={"Want to Read"} showInBookShelf={this.moveBook.bind(this)}/>
+                <Shelf books={books.filter((book) => book.shelf ===  'read')} shelfTitle={"Read"} showInBookShelf={this.moveBook.bind(this)}/>
             </div>
             <div className="open-search">
               <Link to="add_book">Add a book</Link>
