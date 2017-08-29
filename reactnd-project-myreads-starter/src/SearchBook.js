@@ -29,7 +29,8 @@ class SearchBook extends Component {
 							if(booksInShelf.indexOf(book.id)!==-1){
 								booksToShow.push(booksInMyReads[booksInShelf.indexOf(book.id)])
 							} else {
-								booksToShow.push(book)
+								book.shelf = "none";
+								booksToShow.push(book);
 							}
 						})
 					this.setState({booksFound: booksToShow})
